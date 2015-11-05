@@ -156,11 +156,11 @@ function mmtDonutChart(chartName, percent, parameters, touchFunction, drawFuncti
 function progressCounter(labelName, percent){
 	var i=0;
 	var timer = 500/percent
-	var label;
+	var num = document.getElementById(labelName);
 
 	setInterval(function(){
 		if(i<=percent){
-			label = $('#'+labelName).text(i);
+			num.innerHTML = i;
 			i++;
 		}
 	}, timer);

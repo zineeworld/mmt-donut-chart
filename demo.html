@@ -28,15 +28,6 @@
 		/* for label chart */
 		.chart-area {
 			position: relative;
-			width: 210px;
-			height: 210px;
-		}
-		.chart-area .chart {
-			position: absolute;
-			top: -10px;
-			left: -10px;
-			right: 0;
-			z-index: 10;
 		}
 		.chart-area .chart-label {
 			position: absolute;
@@ -134,15 +125,6 @@
 				
 				.chart-area {
 					position: relative;
-					width: 210px;
-					height: 210px;
-				}
-				.chart-area .chart {
-					position: absolute;
-					top: -10px;
-					left: -10px;
-					right: 0;
-					z-index: 10;
 				}
 				.chart-area .chart-label {
 					position: absolute;
@@ -173,11 +155,11 @@
 				function progressCounter(labelName, percent){
 					var i=0;
 					var timer = 500/percent
-					var label;
+					var num = document.getElementById(labelName);
 
 					setInterval(function(){
 						if(i<=percent){
-							label = $('#'+labelName).text(i);
+							num.innerHTML = i;
 							i++;
 						}
 					}, timer);
@@ -225,9 +207,8 @@
 	<!-- should be need to -->
 	<script src="lib/Chart.min.js"></script>
 	<script src="mmt-donut-chart.js"></script>
-	<!-- label chart needs jquery -->
-	<script src="lib/jquery-1.11.3.min.js"></script>
 	<script>
+		SyntaxHighlighter.defaults['toolbar'] = false;
 		SyntaxHighlighter.all();
 
 		var options2 = {
