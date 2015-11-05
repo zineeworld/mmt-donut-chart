@@ -16,20 +16,18 @@
 		body * { box-sizing:border-box; margin:0; padding:0; font-family:'Roboto Condensed'; color:#222; }
 		.wrap { padding:30px 0 100px; margin:0 auto; width:900px; }
 		h1, h2, h3 { text-align:left; }
-		h1 { text-align:center; font-size:50px; text-transform:uppercase; text-shadow:#fff 0px 1px 0, #000 0 -1px 0; }
+		h1 { padding:50px 0 0; text-align:center; font-size:50px; text-transform:uppercase; text-shadow:#fff 0px 1px 0, #000 0 -1px 0; }
 		h2 { padding-top:70px;  font-size:35px; color:#0bbaba; }
 		h3 { padding-top:20px; font-size:25px; }
-		.version { text-align:right; }
+		.version { margin:10px 0 -40px; text-align:right; }
+		.cp_embed_iframe { margin-top:20px; }
 		.sample { padding:10px 0; margin:20px 0; background:#fff; }
 		.sample div { margin:0 15px; display:inline-block; }
 		.syntaxhighlighter {  }
 		.code > div { margin:20px 0; background:#fff; overflow:auto; }
 
 		/* for label chart */
-		.chart-area {
-			position: relative;
-		}
-		.chart-area .chart-label {
+		.chart-label {
 			position: absolute;
 			top: 15px;
 			left: 15px;
@@ -42,13 +40,13 @@
 			cursor: pointer;
 			z-index: 1;
 		}
-		.chart-area .chart-num {
+		.chart-num {
 			display: inline-block;
 			line-height: 200px;
 			font-size: 80px;
 			font-weight: 700;
 		}
-		.chart-area .chart-percent {
+		.chart-percent {
 			display: inline-block;
 			line-height: 200px;
 			font-size: 20px;
@@ -61,9 +59,9 @@
 	<div class="wrap">
 		<h1>mmt-donut-chart.js</h1>
 		<p class="version">v.1.0.0</p>
-	
+		
 		<h2>Example</h2>
-		<h3>· Basic Chart</h3>
+		<h3>· Chart</h3>
 		<div class="sample">
 			<div><canvas id="chart1"></canvas></div>
 			<div><canvas id="chart2"></canvas></div>
@@ -77,8 +75,8 @@
 					&lt;body>
 						<div><canvas id="chart"></canvas></div>
 						
-						<script src="../lib/Chart.min.js"></script>
-						<script src="../src/mmt-donut-chart.js"></script>
+						<script src="lib/Chart.min.js"></script>
+						<script src="mmt-donut-chart.js"></script>
 					&lt;/body>
 				&lt;/html></pre>
 			<pre name="code" class="brush:js">
@@ -89,16 +87,16 @@
 					bgColor: '#444444',
 					doughnutPadding: 5,
 					dotColor: '#0bbaba',
-					outerCanvasSize: 250,
+					outerCanvasSize: 230,
 					pointSize: 5
 				}
 
 				mmtDonutChart('chart', 75, options);	// put ID, percent, options</pre>
 		</div>
 		
-		<h3>· Label Chart</h3>
+		<h3>· Chart + Label</h3>
 		<div class="sample">
-			<div class="chart-area">
+			<div>
 				<canvas id="chart6"></canvas>
 				<span class="chart-label">
 					<span id="chart-num6" class="chart-num"></span><span class="chart-percent">%</span>
@@ -109,24 +107,21 @@
 			<pre name="code" class="brush:html">
 				&lt;html>
 					&lt;body>
-						<div class="chart-area">
+						<div>
 							<canvas id="chart"></canvas>
-							<span id="chart-label" class="chart-label">
+							<span class="chart-label">
 								<span id="chart-num" class="chart-num"></span><span class="chart-percent">%</span>
 							</span>
 						</div>
 												
-						<script src="../lib/Chart.min.js"></script>
-						<script src="../src/mmt-donut-chart.js"></script>
+						<script src="lib/Chart.min.js"></script>
+						<script src="mmt-donut-chart.js"></script>
 					&lt;/body>
 				&lt;/html></pre>
 			<pre name="code" class="brush:css">
 				/* You should change css according to chart size. */
 				
-				.chart-area {
-					position: relative;
-				}
-				.chart-area .chart-label {
+				.chart-label {
 					position: absolute;
 					top: 15px;
 					left: 15px;
@@ -139,13 +134,15 @@
 					cursor: pointer;
 					z-index: 1;
 				}
-				.chart-area .chart-num {
+				
+				.chart-num {
 					display: inline-block;
 					line-height: 200px;
 					font-size: 80px;
 					font-weight: 700;
 				}
-				.chart-area .chart-percent {
+
+				.chart-percent {
 					display: inline-block;
 					line-height: 200px;
 					font-size: 20px;
@@ -169,6 +166,10 @@
 				progressCounter('chart-num', 100);	  // put label ID</pre>
 		</div>
 
+		<h3>· Chart + Label + Background</h3>
+		<p data-height="282" data-theme-id="19253" data-slug-hash="qOopXX" data-default-tab="result" data-user="mmt-zinee" class="codepen">See the Pen <a href='http://codepen.io/mmt-zinee/pen/qOopXX/'>mmt-donut-chart</a> by Hyejin Oh (<a href='http://codepen.io/mmt-zinee'>@mmt-zinee</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+		<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
 		<h2>Options</h2>
 		<pre name="code" class="brush:js">
 			{
@@ -191,7 +192,7 @@
 				dotColor: '#0bbaba',
 
 				// Number - Chart outer canvas size(px)
-				outerCanvasSize: 250,
+				outerCanvasSize: 230,
 
 				// Number - Size(px) of dot
 				pointSize: 5
