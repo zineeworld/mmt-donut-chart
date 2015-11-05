@@ -7,7 +7,7 @@
  * https://github.com/MyMusicTaste/mmt-donut-chart/blob/master/LICENSE
  */
 
- function mmtDonutChart(chartName, percent, parameters, touchFunction, drawFunction) {
+function mmtDonutChart(chartName, percent, parameters, touchFunction, drawFunction) {
 	// PE add a parameter drawFunction..callback for canvas render step
 
 	if(parameters==undefined){
@@ -164,16 +164,4 @@ function progressCounter(labelName, percent){
 			i++;
 		}
 	}, timer);
-}
-
-function counterDisplay(labelName){
-	setTimeout(function(){
-		$('#'+labelName).parent().fadeOut();
-	}, 3000);
-
-	$('#chart').mouseenter(function(){
-		$('#chart-label').stop().fadeIn();
-	}).mouseleave(function(){
-		$('#chart-label').stop().fadeOut();
-	});
 }

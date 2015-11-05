@@ -1,5 +1,5 @@
 # mmt-donut-chart
-MMT-DONUT-CHART with Chart.js.
+mmt-donut-chart.js with Chart.js.
 
 ##Options
 ```javascript
@@ -16,4 +16,4 @@ var options = {
 ```
 
 ##Examples
-https://github.com/MyMusicTaste/mmt-donut-chart/sample/index.html
+http://code.mymusictaste.com/mmt-donut-chart/demo.html
