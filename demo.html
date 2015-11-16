@@ -18,7 +18,8 @@
 		h1, h2, h3 { text-align:left; }
 		h1 { padding:50px 0 0; text-align:center; font-size:50px; text-transform:uppercase; text-shadow:#fff 0px 1px 0, #000 0 -1px 0; }
 		h2 { padding-top:70px;  font-size:35px; color:#0bbaba; }
-		h3 { padding-top:20px; font-size:25px; }
+		h3 { padding-top:70px; font-size:25px; }
+		h3:first-of-type { padding-top:20px; }
 		.version { margin:10px 0 -40px; text-align:right; }
 		.cp_embed_iframe { margin-top:20px; }
 		.sample { padding:10px 0; margin:20px 0; background:#fff; }
@@ -58,7 +59,7 @@
 <body>
 	<div class="wrap">
 		<h1>mmt-donut-chart.js</h1>
-		<p class="version">v.1.0.0</p>
+		<p class="version">v.1.1.0</p>
 		
 		<h2>Example</h2>
 		<h3>· Chart</h3>
@@ -94,6 +95,34 @@
 				mmtDonutChart('chart', 75, options);	// put ID, percent, options</pre>
 		</div>
 		
+		<h3>· Chart (gradient fill) - added v.1.1.0 </h3>
+		<div class="sample">
+			<div><canvas id="chart7"></canvas></div>
+			<div><canvas id="chart8"></canvas></div>
+			<div><canvas id="chart9"></canvas></div>
+			<div><canvas id="chart10"></canvas></div>
+			<div><canvas id="chart11"></canvas></div>
+		</div>
+		<div class="code">
+			<pre name="code" class="brush:html">
+				&lt;html>
+					&lt;body>
+						<div><canvas id="chart"></canvas></div>
+						
+						<script src="lib/Chart.min.js"></script>
+						<script src="mmt-donut-chart.js"></script>
+					&lt;/body>
+				&lt;/html></pre>
+			<pre name="code" class="brush:js">
+				var options = {
+					startColor: '#f8ca4d',
+					endColor: '#0bbaba'
+				}
+
+				mmtDonutChart('chart', 75, options);	// put ID, percent, options</pre>
+		</div>
+
+
 		<h3>· Chart + Label</h3>
 		<div class="sample">
 			<div>
@@ -179,6 +208,12 @@
 				// String - Animation part color of chart
 				chartColor: '#0bbaba',
 
+				// String - Gradient fill (start color), default is same to chartColor
+				startColor: '#0bbaba',
+
+				// String - Gradient fill (end color), default is same to chartColor
+				endColor: '#0bbaba',
+
 				// Number - The percentage of the chart that we cut out of the middle
 				cutOut: 98,
 
@@ -188,7 +223,7 @@
 				// Number - Padding(px) inside outer canvas 
 				doughnutPadding: 5,
 
-				// String - Donut chart dot color
+				// String - Donut chart dot color, default is same to chartColor
 				dotColor: '#0bbaba',
 
 				// Number - Chart outer canvas size(px)
@@ -240,6 +275,50 @@
 			pointSize: 0
 		};
 
+		var options7 = {
+			startColor: '#f8ca4d',
+			endColor: '#0bbaba'
+		};
+
+		var options8 = {
+			cutOut: 95,
+			doughnutPadding: 10,
+			outerCanvasSize: 200,
+			pointSize: 7,
+			startColor: '#ff0000',
+			endColor: '#ffff00',
+			dotColor: '#ffff00'
+		};
+
+		var options9 = {
+			cutOut: 90,
+			doughnutPadding: 12,
+			outerCanvasSize: 150,
+			pointSize: 7,
+			startColor: '#0f4ea5',
+			endColor: '#1a5e65',
+			dotColor: '#1a5e65'
+		};
+
+		var options10 = {
+			cutOut: 90,
+			doughnutPadding: 10,
+			outerCanvasSize: 100,
+			pointSize: 6,
+			startColor: '#8b8378',
+			endColor: '#3d56f5',
+			dotColor: '#3d56f5'
+		};
+
+		var options11 = {
+			cutOut: 80,
+			doughnutPadding: 0,
+			outerCanvasSize: 50,
+			pointSize: 0,
+			startColor: '#156785',
+			endColor: '#495612'
+		};
+
 		mmtDonutChart('chart1', 75);	// default style
 		mmtDonutChart('chart2', 75, options2);
 		mmtDonutChart('chart3', 75, options3);
@@ -248,6 +327,12 @@
 
 		mmtDonutChart('chart6', 100);
 		progressCounter('chart-num6', 100);
+
+		mmtDonutChart('chart7', 75, options7);
+		mmtDonutChart('chart8', 75, options8);
+		mmtDonutChart('chart9', 75, options9);
+		mmtDonutChart('chart10', 75, options10);
+		mmtDonutChart('chart11', 75, options11);
 	</script>
 </body>
 </html>
