@@ -198,11 +198,6 @@ function mmtDonutChart(chartName, percent, parameters) {
 			outerCanvasContext.arc(statusGrid.x+doughnutPadding, statusGrid.y+doughnutPadding, pointSize, 0, 2 * Math.PI, false);
 			outerCanvasContext.fillStyle = dotColor;
 			outerCanvasContext.fill();
-		},
-
-		progessCounter: function(percent) {
-			console.log(percent);
-			
 		}
 	});
 
