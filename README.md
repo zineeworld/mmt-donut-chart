@@ -13,7 +13,9 @@ var options = {
 	doughnutPadding: 5,
 	dotColor: '#0bbaba',
 	outerCanvasSize: 250,
-	pointSize: 5
+	pointSize: 5,
+	labelShow: false,
+	labelAnimation: false
 };
 ```
 

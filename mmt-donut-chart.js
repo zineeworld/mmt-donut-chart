@@ -1,17 +1,19 @@
 /*!
 * mmt-donut-chart.js
-* Version: 1.1.0
+* Version: 1.1.1
 *
 * Copyright 2015 MyMusicTaste
 * Released under the MIT license
 * https://github.com/MyMusicTaste/mmt-donut-chart/blob/master/LICENSE
 */
 
-function mmtDonutChart(chartName, percent, parameters, touchFunction, drawFunction) {
-// PE add a parameter drawFunction..callback for canvas render step
+function mmtDonutChart(chartName, percent, parameters) {
 
 	if(parameters==undefined){
 		parameters = '';
+	}
+	if(percent==0){
+		percent = 0.001;
 	}
 
 	var animationStep  = parameters.animationStep || 100,
@@ -23,7 +25,9 @@ function mmtDonutChart(chartName, percent, parameters, touchFunction, drawFuncti
 	dotColor      		= parameters.dotColor || chartColor,
 	doughnutPadding 	= parameters.doughnutPadding || 5,
 	outerCanvasSize   	= parameters.outerCanvasSize || 230,
-	pointSize       		= parameters.pointSize || 5;
+	pointSize       		= parameters.pointSize || 5,
+	labelShow			= parameters.labelShow || false,
+	labelAnimation		= parameters.labelAnimation || false;
 
 	if(parameters.pointSize==0){  // dot remove
 		pointSize = 0;
@@ -32,7 +36,7 @@ function mmtDonutChart(chartName, percent, parameters, touchFunction, drawFuncti
 	var outerCanvasContext,
 	statusGrid,
 	stepSize = percent / animationStep, // PE the incremental increase in value per canvas render step (x100)
-	drawStepProgress = 1; // PE start at 1%
+	drawStepProgress = 0; // PE start at 1%
 
 	/* ===== v.1.1.0 update ======================== */
 	if(startColor==chartColor && endColor==chartColor){
@@ -53,7 +57,6 @@ function mmtDonutChart(chartName, percent, parameters, touchFunction, drawFuncti
 
 		for(var i=1; i<101; i++){
 			var color = makeGradientColor(startColor, endColor, i);
-			//console.log(color);
 
 			data.push({ 
 				value: step, 
@@ -121,13 +124,17 @@ function mmtDonutChart(chartName, percent, parameters, touchFunction, drawFuncti
 		// Check if we need to extend the scale
 		initialize: function(data) {
 			this.options.onAnimationProgress = function() {
+				var label = document.getElementById(chartName+'-num');
+
 				if (statusGrid !== undefined) {
 					this.drawPoint();
 				}
-				// PE output the current canvas render progress to caller draw function, if exists
-				if (drawFunction !== undefined) {
-					drawStepProgress += stepSize;
-					drawFunction(drawStepProgress);
+				if (labelShow == true && labelAnimation == true) {
+					drawStepProgress += stepSize;					
+					label.innerHTML = Math.round(drawStepProgress);
+				}
+				if (labelShow == true && labelAnimation == false) {
+					label.innerHTML = Math.round(percent);
 				}
 			};
 			this.options.onAnimationComplete = function() {
@@ -172,7 +179,7 @@ function mmtDonutChart(chartName, percent, parameters, touchFunction, drawFuncti
 				segment.endAngle = segment.startAngle + segment.circumference;
 				segment.draw(); // valid part
 
-				if (index === 0) {
+				if (index == 0) {
 					segment.startAngle = Math.PI * 1.5;
 				}
 				//Check to see if it's the last segment, if not get the next and update the start angle
@@ -191,6 +198,11 @@ function mmtDonutChart(chartName, percent, parameters, touchFunction, drawFuncti
 			outerCanvasContext.arc(statusGrid.x+doughnutPadding, statusGrid.y+doughnutPadding, pointSize, 0, 2 * Math.PI, false);
 			outerCanvasContext.fillStyle = dotColor;
 			outerCanvasContext.fill();
+		},
+
+		progessCounter: function(percent) {
+			console.log(percent);
+			
 		}
 	});
 
@@ -211,17 +223,7 @@ function mmtDonutChart(chartName, percent, parameters, touchFunction, drawFuncti
 	outerCanvasContext.canvas.width = outerCanvasSize;
 	var ctx = doughnutCanvas.getContext("2d");
 	var myDoughnutChart = new Chart(ctx).extendDonutChart(data, options);
+
+
 };
 
-function progressCounter(labelName, percent){
-	var i=0;
-	var timer = 500/percent
-	var num = document.getElementById(labelName);
-
-	setInterval(function(){
-		if(i<=percent){
-			num.innerHTML = i;
-			i++;
-		}
-	}, timer);
-}
