@@ -1,33 +1,38 @@
 /*!
 * mmt-donut-chart.js
-* Version: 1.1.1
+* Version: 1.1.2
 *
 * Copyright 2015 MyMusicTaste
 * Released under the MIT license
 * https://github.com/MyMusicTaste/mmt-donut-chart/blob/master/LICENSE
 */
 
-function mmtDonutChart(chartName, percent, parameters) {
+function mmtDonutChart(chartName, percent, parameters, completeFunction) {
 
 	if(parameters==undefined){
-		parameters = '';
+		parameters = {};
 	}
 	if(percent==0){
 		percent = 0.001;
 	}
+	if(parameters.animateRotation==null){
+		parameters.animateRotation = true;
+	}
 
-	var animationStep  = parameters.animationStep || 100,
-	bgColor     			= parameters.bgColor || '#000',
-	chartColor      		= parameters.chartColor || '#0bbaba',
-	startColor			= parameters.startColor || chartColor,
-	endColor			= parameters.endColor || chartColor,
-	cutOut        		= parameters.cutOut || 98,
-	dotColor      		= parameters.dotColor || chartColor,
-	doughnutPadding 	= parameters.doughnutPadding || 5,
-	outerCanvasSize   	= parameters.outerCanvasSize || 230,
-	pointSize       		= parameters.pointSize || 5,
-	labelShow			= parameters.labelShow || false,
-	labelAnimation		= parameters.labelAnimation || false;
+	var animateRotation	= parameters.animateRotation && true,
+		animationStep  	= parameters.animationStep || 100,
+		bgColor     			= parameters.bgColor || '#000000',
+		chartColor      		= parameters.chartColor || '#0bbabb',
+		startColor			= parameters.startColor || chartColor,
+		endColor			= parameters.endColor || chartColor,
+		cutOut        		= parameters.cutOut || 97,
+		dotColor      		= parameters.dotColor || chartColor,
+		doughnutPadding 	= parameters.doughnutPadding || 5,
+		outerCanvasSize   	= parameters.outerCanvasSize || 230,
+		pointSize       		= parameters.pointSize || 5,
+		labelShow			= parameters.labelShow || false,
+		labelAnimation		= parameters.labelAnimation || false,
+		defaultChart		= parameters.defaultChart || false;
 
 	if(parameters.pointSize==0){  // dot remove
 		pointSize = 0;
@@ -111,12 +116,13 @@ function mmtDonutChart(chartName, percent, parameters) {
 		percentageInnerCutout : cutOut,
 		animationSteps : animationStep,
 		animationEasing : "linear",
-		animateRotate : true,
-		showTooltips: false
+		animateRotate : animateRotation
 	};
 
 	var doughnutCanvas;
 	var helpers = Chart.helpers;
+	var helpers = Chart.helpers;
+	var label = document.getElementById(chartName+'-num');
 
 	Chart.types.Doughnut.extend({
 		name: "extendDonutChart",
@@ -124,8 +130,6 @@ function mmtDonutChart(chartName, percent, parameters) {
 		// Check if we need to extend the scale
 		initialize: function(data) {
 			this.options.onAnimationProgress = function() {
-				var label = document.getElementById(chartName+'-num');
-
 				if (statusGrid !== undefined) {
 					this.drawPoint();
 				}
@@ -138,7 +142,9 @@ function mmtDonutChart(chartName, percent, parameters) {
 				}
 			};
 			this.options.onAnimationComplete = function() {
-				//touchFunction(statusGrid);  // HJ commented
+				if(completeFunction!==undefined){
+					completeFunction();  // HJ commented
+				}
 			};
 
 			Chart.types.Doughnut.prototype.initialize.apply(this, arguments);
@@ -201,24 +207,30 @@ function mmtDonutChart(chartName, percent, parameters) {
 		}
 	});
 
-	window.devicePixelRatio = 1;  // HJ for mobile issue
-	var size = outerCanvasSize - doughnutPadding * 2;
-	doughnutCanvas = document.createElement("canvas");
-	doughnutCanvas.width = size;
-	doughnutCanvas.height = size;
-	doughnutCanvas.style.visibility = 'hidden'; 
-	doughnutCanvas.style.position = 'absolute';
-	doughnutCanvas.style.top = doughnutPadding+'px';
-	doughnutCanvas.style.left = doughnutPadding+'px';
-	document.getElementById(chartName).parentNode.style.position = 'relative';
-	document.getElementById(chartName).parentNode.appendChild(doughnutCanvas);
+	if(defaultChart==false) {
+		window.devicePixelRatio = 1;  // HJ for mobile issue
+		var size = outerCanvasSize - doughnutPadding * 2;
+		doughnutCanvas = document.createElement("canvas");
+		doughnutCanvas.width = size;
+		doughnutCanvas.height = size;
+		doughnutCanvas.style.visibility = 'hidden'; 
+		doughnutCanvas.style.position = 'absolute';
+		doughnutCanvas.style.top = doughnutPadding+'px';
+		doughnutCanvas.style.left = doughnutPadding+'px';
+		document.getElementById(chartName).parentNode.style.position = 'relative';
+		document.getElementById(chartName).parentNode.appendChild(doughnutCanvas);
 
-	outerCanvasContext = document.getElementById(chartName).getContext("2d");
-	outerCanvasContext.canvas.height = outerCanvasSize;
-	outerCanvasContext.canvas.width = outerCanvasSize;
-	var ctx = doughnutCanvas.getContext("2d");
-	var myDoughnutChart = new Chart(ctx).extendDonutChart(data, options);
-
+		outerCanvasContext = document.getElementById(chartName).getContext("2d");
+		outerCanvasContext.canvas.height = outerCanvasSize;
+		outerCanvasContext.canvas.width = outerCanvasSize;
+		ctx = doughnutCanvas.getContext("2d");
+		myDoughnutChart = new Chart(ctx).extendDonutChart(data, options);
+	}
+	else {
+		label.innerHTML = percent;
+		ctx = document.getElementById(chartName).getContext("2d");
+		myDoughnutChart = new Chart(ctx).Doughnut(data, options);
+	}
 
 };
 

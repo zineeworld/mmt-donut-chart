@@ -4,6 +4,7 @@ mmt-donut-chart.js with Chart.js.
 ##Options
 ```javascript
 var options = {
+	animationRotation: true,
 	animationStep: 100,
 	chartColor: '#0bbaba',
 	startColor: '#0bbaba',
@@ -15,7 +16,8 @@ var options = {
 	outerCanvasSize: 250,
 	pointSize: 5,
 	labelShow: false,
-	labelAnimation: false
+	labelAnimation: false,
+	defaultChart: false
 };
 ```
 
