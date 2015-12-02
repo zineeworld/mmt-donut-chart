@@ -17,6 +17,10 @@ function mmtDonutChart(chartName, percent, parameters, completeFunction) {
 		parameters.animateRotation = true;
 	}
 
+	if(parameters.defaultChart==null && percent==0){
+		percent = 0.001;
+	}
+
 	var animateRotation	= parameters.animateRotation && true,
 		animationStep  	= parameters.animationStep || 100,
 		bgColor     			= parameters.bgColor || '#000000',
@@ -32,14 +36,11 @@ function mmtDonutChart(chartName, percent, parameters, completeFunction) {
 		labelAnimation		= parameters.labelAnimation || false,
 		defaultChart		= parameters.defaultChart || false;
 
-	if(defaultChart==false && percent==0){
-		percent = 0.001;
-	}
-
+	
 	if(parameters.pointSize==0){  // dot remove
 		pointSize = 0;
 	}
-
+	
 	var outerCanvasContext,
 	statusGrid,
 	stepSize = percent / animationStep, // PE the incremental increase in value per canvas render step (x100)
