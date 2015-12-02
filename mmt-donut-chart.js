@@ -12,9 +12,7 @@ function mmtDonutChart(chartName, percent, parameters, completeFunction) {
 	if(parameters==undefined){
 		parameters = {};
 	}
-	if(percent==0){
-		percent = 0.001;
-	}
+	
 	if(parameters.animateRotation==null){
 		parameters.animateRotation = true;
 	}
@@ -33,6 +31,10 @@ function mmtDonutChart(chartName, percent, parameters, completeFunction) {
 		labelShow			= parameters.labelShow || false,
 		labelAnimation		= parameters.labelAnimation || false,
 		defaultChart		= parameters.defaultChart || false;
+
+	if(defaultChart==false && percent==0){
+		percent = 0.001;
+	}
 
 	if(parameters.pointSize==0){  // dot remove
 		pointSize = 0;
