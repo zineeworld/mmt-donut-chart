@@ -119,7 +119,8 @@ function mmtDonutChart(chartName, percent, parameters, completeFunction) {
 		percentageInnerCutout : cutOut,
 		animationSteps : animationStep,
 		animationEasing : "linear",
-		animateRotate : animateRotation
+		animateRotate : animateRotation,
+		showTooltips: false
 	};
 
 	var doughnutCanvas;
