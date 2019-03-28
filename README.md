@@ -1,7 +1,7 @@
 # mmt-donut-chart
 mmt-donut-chart.js with Chart.js.
 
-##Options
+## Options
 ```javascript
 var options = {
 	animationRotation: true,
@@ -21,5 +21,5 @@ var options = {
 };
 ```
 
-##Examples
+## Examples
 <a href="http://code.mymusictaste.com/mmt-donut-chart/demo.html" target="_blank">DEMO</a>
